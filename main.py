@@ -1,6 +1,6 @@
 import snap7
 from snap7.util import *
-from snap7.types import Areas
+from snap7.type import Areas
 
 # Cria o cliente
 client = snap7.client.Client()
