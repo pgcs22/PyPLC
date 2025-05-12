@@ -15,6 +15,8 @@
 ### Instalação
 Digitar os seguintes comandos no terminal:
 
-` cd Transferencia_de_dados_modbus-Python `
+` git clone https://github.com/pgcs22/PyPLC.git `
+
+` cd PyPLC `
 
 ` pip install -r requerimentos.txt ` 
