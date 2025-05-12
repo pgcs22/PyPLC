@@ -1,0 +1,6 @@
+pandas
+dash
+dash-bootstrap-components
+pymysql
+python-snap7
+pylogics
