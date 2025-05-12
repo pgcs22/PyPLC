@@ -1,24 +1,28 @@
 import snap7
+from snap7.util import *
+from snap7.types import Areas
 
-# Configuração do cliente
-plc = snap7.client.Client()
-plc.connect('192.168.0.1', 0, 1)  # IP, rack, slot
+# Cria o cliente
+client = snap7.client.Client()
 
-# Verificar conexão
-if plc.get_connected():
-    print("Conectado ao PLC!")
+# Conecta ao CLP - substitua pelo IP e Rack/Slot corretos
+client.connect('192.168.0.1', 0, 1)  # IP, Rack, Slot
+
+# Verifica se está conectado
+if client.get_connected():
+    print("Conectado ao CLP!")
+
+    # Lê 4 bytes do DB 1, começando no byte 0
+    db_number = 1
+    start = 0
+    size = 4
+    data = client.read_area(Areas.DB, db_number, start, size)
+
+    # Interpreta os 4 bytes como um inteiro (int32)
+    value = get_int(data, 0)
+    print(f"Valor lido do DB{db_number}: {value}")
+
+    # Desconecta
+    client.disconnect()
 else:
-    print("Falha na conexão")
-
-# Ler uma área de memória (ex: DB1, 10 bytes a partir do offset 0)
-db_number = 1
-start_address = 0
-length = 10
-data = plc.db_read(db_number, start_address, length)
-
-# Escrever em uma área de memória
-new_data = bytearray([1, 2, 3, 4, 5])
-plc.db_write(db_number, start_address, new_data)
-
-# Desconectar
-plc.disconnect()
+    print("Falha na conexão com o CLP.")
